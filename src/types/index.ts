@@ -11,6 +11,7 @@ export interface Upload {
   url: string;
   type: 'image' | 'pdf';
   size: string;
+  'data-ai-hint'?: string;
 }
 
 export interface Spreadsheet {

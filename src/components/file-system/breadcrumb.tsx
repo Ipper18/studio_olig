@@ -29,7 +29,7 @@ export function BreadcrumbNav({ items, basePath }: BreadcrumbNavProps) {
         </BreadcrumbItem>
         {pathSegments.length > 0 && <BreadcrumbSeparator />}
         {pathSegments.map((item, index) => {
-          currentPath += `/${slugify(item.name, { lower: true })}`;
+          currentPath += `/${slugify(item.name, { lower: true, strict: true })}`;
           const isLast = index === pathSegments.length - 1;
           return (
             <Fragment key={item.id}>

@@ -20,7 +20,7 @@ const items: FileSystemItem[] = [
     ],
     uploads: [
       { id: 'up1', name: 'raport-sprzedazy.pdf', url: '#', type: 'pdf', size: '1.2 MB' },
-      { id: 'up2', name: 'wykres-trendow.png', data-ai-hint: "chart graph", url: 'https://placehold.co/400x300.png', type: 'image', size: '345 KB' },
+      { id: 'up2', name: 'wykres-trendow.png', 'data-ai-hint': "chart graph", url: 'https://placehold.co/400x300.png', type: 'image', size: '345 KB' },
     ],
   },
 ];
