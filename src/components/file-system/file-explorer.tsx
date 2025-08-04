@@ -2,10 +2,12 @@
 
 import { FileSystemItem } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Folder, Table } from "lucide-react";
+import { ArrowLeft, Folder, Table } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { CreateItemDialog } from "./create-item-dialog";
+import { UploadFileDialog } from "./upload-file-dialog";
+import { Button } from "../ui/button";
 
 interface FileExplorerProps {
   items: FileSystemItem[];
@@ -14,6 +16,7 @@ interface FileExplorerProps {
 
 export function FileExplorer({ items, parentId }: FileExplorerProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const getHref = (item: FileSystemItem) => {
     if (item.type === "folder") {
@@ -22,12 +25,32 @@ export function FileExplorer({ items, parentId }: FileExplorerProps) {
     }
     return `/spreadsheet/${item.id}`;
   };
+  
+  const handleBack = () => {
+    if (pathname !== '/work') {
+        const pathSegments = pathname.split('/').filter(Boolean);
+        // remove 'work' and the last segment
+        const newPath = '/work/' + pathSegments.slice(1, -1).join('/');
+        router.push(newPath);
+    }
+  };
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Zasoby</h1>
-        <CreateItemDialog parentId={parentId} />
+        <div className="flex items-center gap-4">
+          {pathname !== '/work' && (
+              <Button variant="outline" size="icon" onClick={handleBack}>
+                  <ArrowLeft className="h-4 w-4" />
+                  <span className="sr-only">Wstecz</span>
+              </Button>
+          )}
+          <h1 className="text-3xl font-bold tracking-tight">Zasoby</h1>
+        </div>
+        <div className="flex items-center gap-2">
+            <UploadFileDialog parentId={parentId} />
+            <CreateItemDialog parentId={parentId} />
+        </div>
       </div>
       {items.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
